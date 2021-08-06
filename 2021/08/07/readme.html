@@ -1,0 +1,648 @@
+<h1 id="欢迎来到fastpages">欢迎来到<code class="language-plaintext highlighter-rouge">fastpages</code></h1>
+
+<blockquote>
+  <p>一个易于使用的博客平台，支持Jupyter笔记本、Word文档和记分。</p>
+</blockquote>
+
+<p><a href="https://github.com/fastai/fastpages/blob/master/images/diagram.png"><img src="https://github.com/fastai/fastpages/raw/master/images/diagram.png" alt="" /></a></p>
+
+<p><code class="language-plaintext highlighter-rouge">fastpages</code> 使用<a href="https://github.com/features/actions">GitHub 操作</a>简化从各种输入格式在<a href="https://pages.github.com/">GitHub 页面</a>上创建<a href="https://jekyllrb.com/">Jekyll 博客文章</a>的过程。</p>
+
+<h3 id="fastpages-提供以下功能"><a href="#fastpages-provides-the-following-features"></a><code class="language-plaintext highlighter-rouge">fastpages</code> 提供以下功能：</h3>
+
+<ul>
+  <li>直接从<a href="https://jupyter.org/">Jupyter 笔记本</a>创建包含代码、代码输出（可交互）、格式化文本等的帖子：笔记本帖子支持功能，如：
+    <ul>
+      <li>使用<a href="https://altair-viz.github.io/">Altair</a>制作的交互式可视化保持交互式。</li>
+      <li>隐藏或显示单元格输入和输出。</li>
+      <li>默认情况下打开或关闭的可折叠代码单元。</li>
+      <li>通过特殊的减价单元定义标题、摘要和其他元数据</li>
+      <li>能够自动添加<a href="https://colab.research.google.com/">指向科拉布</a>和吉图布的链接。</li>
+    </ul>
+  </li>
+  <li>支持评论，通过GitHub问题提供本地支持。</li>
+  <li>内置搜索。</li>
+  <li>支持自定义网站的造型。</li>
+  <li>嵌入推特卡和 Youtube 视频。</li>
+  <li>按用户提供的标签对博客文章进行分类，以实现可发现性。</li>
+  <li>创建和编辑<a href="https://guides.github.com/features/mastering-markdown/">记下</a>的帖子。</li>
+  <li>直接从 Microsoft Word 文档创建帖子，包括格式和图像。</li>
+  <li>在本地机器上写帖子，<a href="#running-the-blog-on-your-local-machine">并实时重新加载预览它们</a>。</li>
+</ul>
+
+<p>有关更详细的功能列表，请参阅下文。</p>
+
+<p><strong><a href="https://fastpages.fast.ai/">查看演示网站</a></strong></p>
+
+<hr />
+
+<ul>
+  <li><a href="#welcome-to-fastpages">欢迎收<code class="language-plaintext highlighter-rouge">听快页</code></a>
+    <ul>
+      <li><a href="#fastpages-provides-the-following-features"><code class="language-plaintext highlighter-rouge">快速页面</code>提供以下功能：</a></li>
+      <li><a href="#setup-instructions">设置说明</a></li>
+      <li><a href="#customizing-blog-posts-with-front-matter">自定义博客文章与正面问题</a>
+        <ul>
+          <li><a href="#configure-title--summary">配置标题和摘要</a></li>
+          <li><a href="#table-of-contents">内容表</a></li>
+          <li><a href="#colab-binder-and-github-badges">科拉布、活页夹和吉图布徽章</a></li>
+          <li><a href="#categories">类别</a></li>
+          <li><a href="#enabling-comments">启用注释</a></li>
+          <li><a href="#setting-an-image-for-social-media">为社交媒体设置图像</a></li>
+          <li><a href="#hiding-a-blog-post">隐藏博客文章</a></li>
+          <li><a href="#pinning-a-blog-post">固定博客文章</a></li>
+          <li><a href="#toggle-search-visibility">切换搜索可见性</a></li>
+        </ul>
+      </li>
+      <li><a href="#site-wide-configuration-options">站点宽配置选项</a></li>
+      <li><a href="#adjusting-page-width">调整页面宽度</a></li>
+      <li><a href="#annotations-and-highlighting-with-hypothes.is">注释和突出显示与 hypothes.is</a></li>
+      <li><a href="#subscribing-with-rss">订阅 RSS</a></li>
+      <li><a href="#syntax-highlighting">语法突出显示</a></li>
+      <li><a href="#dark-mode">黑暗模式</a></li>
+      <li><a href="#adding-citations-via-bibtex">通过 BibTex 添加引文</a></li>
+      <li><a href="#writing-blog-posts-with-jupyter">写博客文章与朱皮特</a>
+        <ul>
+          <li><a href="#hide-inputoutput-cells">隐藏输入/输出单元</a></li>
+          <li><a href="#collapsable-code-cells">可折叠代码单元</a></li>
+          <li><a href="#embedded-twitter-and-youtube-content">嵌入式推特和 YouTube 内容</a></li>
+          <li><a href="#adding-footnotes">添加脚注</a></li>
+          <li><a href="#automatically-convert-notebooks-to-blog-posts">自动将笔记本转换为博客帖子</a></li>
+        </ul>
+      </li>
+      <li><a href="#writing-blog-posts-with-markdown">写博客文章与记分</a></li>
+      <li><a href="#writing-blog-posts-with-microsoft-word">用微软字写博客文章</a>
+        <ul>
+          <li><a href="#specifying-front-matter-for-word-documents">指定 Word 文档的正面事项</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#running-the-blog-on-your-local-machine">在本地机器上运行博客</a></li>
+  <li><a href="#using-the-github-action--your-own-custom-blog">使用GitHub行动和您自己的自定义博客</a>
+    <ul>
+      <li><a href="#optional-inputs">可选输入</a></li>
+    </ul>
+  </li>
+  <li><a href="#contributing-to-fastpages">为快速页面做出贡献</a></li>
+  <li><a href="#upgrading-fastpages">升级快速页面</a></li>
+  <li><a href="#faq">常见问题</a></li>
+  <li><a href="#customizing-fastpages">自定义快速页面</a></li>
+  <li><a href="#troubleshooting-fastpages">故障排除快页</a></li>
+</ul>
+
+<h2 id="设置说明"><a href="#setup-instructions"></a>设置说明</h2>
+
+<ol>
+  <li>
+    <p>点击<a href="https://github.com/fastai/fastpages/generate">此链接</a>生成此回购的副本。请务必登录您的帐户，否则您将看到404错误。命名您的回购任何你喜欢<strong>的，除了</strong>[你的用户名]。github.io。</p>
+  </li>
+  <li>
+    <p><strong>GitHub 操作将在</strong>创建副本后 30 秒内自动打开新存储库上的 PR。按照该公关中的说明继续。</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p>如果您没有看到 PR，请确保在组织中启用了第三方操作：<strong>设置 -&gt;操作 - &gt;操作权限 - &gt;启用此存储库的本地和第三方操作</strong></p>
+</blockquote>
+
+<p>有关设置步骤的实时演练（并提供一些其他提示），请参阅此视频教程，该教程由 Abdul Majed<a href="https://youtu.be/L0boq3zqazI">设置快速页面博客</a>。</p>
+
+<h2 id="自定义博客文章与正面问题"><a href="#customizing-blog-posts-with-front-matter"></a>自定义博客文章与正面问题</h2>
+
+<p><a href="https://jekyllrb.com/docs/front-matter/">前方问题</a>允许您切换每个博客文章的开/关各种选项，以及将元数据传递到快速页面的各种功能。</p>
+
+<p>在笔记本中，正面物质定义为笔记本开头的减记单元，内容如下：</p>
+
+<pre><code class="language-gfm"># "Title"
+&gt; "Awesome summary"
+
+- toc: false
+- branch: master
+- badges: true
+- comments: true
+- categories: [fastpages, jupyter]
+- image: images/some_folder/your_image.png
+- hide: false
+- search_exclude: true
+- metadata_key1: metadata_value1
+- metadata_key2: metadata_value2
+</code></pre>
+
+<p>同样，在减价文档中，在文档的开头将定义相同的正面事项：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">My</span><span class="nv"> </span><span class="s">Title"</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Awesome</span><span class="nv"> </span><span class="s">description"</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">post</span>
+<span class="na">toc</span><span class="pi">:</span> <span class="no">false</span>
+<span class="na">comments</span><span class="pi">:</span> <span class="no">true</span>
+<span class="na">image</span><span class="pi">:</span> <span class="s">images/some_folder/your_image.png</span>
+<span class="na">hide</span><span class="pi">:</span> <span class="no">false</span>
+<span class="na">search_exclude</span><span class="pi">:</span> <span class="no">true</span>
+<span class="na">categories</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">fastpages</span><span class="pi">,</span> <span class="nv">jupyter</span><span class="pi">]</span>
+<span class="na">metadata_key1</span><span class="pi">:</span> <span class="s">metadata_value1</span>
+<span class="na">metadata_key2</span><span class="pi">:</span> <span class="s">metadata_value2</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p>额外的元数据是可选的，并允许您设置自定义<a href="https://jekyllrb.com/docs/front-matter/">正面问题</a>。</p>
+
+<p>请注意，在前面的事项定义的任何内容都必须是有效的YAML。<strong>未能提供有效的YAML可能导致您的页面无法</strong>在您的博客中呈现。例如，如果你想在你的标题冒号，你必须逃脱它与这样的双重报价：</p>
+
+<p><code class="language-plaintext highlighter-rouge">- title: "Deep learning: A tutorial"</code></p>
+
+<p>有关更多信息，请参阅<a href="https://rollout.io/blog/yaml-tutorial-everything-you-need-get-started/">此 YAML 教程</a>。</p>
+
+<h3 id="配置标题和摘要"><a href="#configure-title--summary"></a>配置标题和摘要</h3>
+
+<ul>
+  <li>用您想要的标题替换，并替换所需的摘要。<code class="language-plaintext highlighter-rouge">Title</code><code class="language-plaintext highlighter-rouge">Awesome summary</code></li>
+</ul>
+
+<p><strong>注：</strong>建议将这些值封装在双引号中，以便您可以逃离可能破坏 YAML 解析器的冒号和其他字符。</p>
+
+<h3 id="内容表"><a href="#table-of-contents"></a>内容表</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">fast_template</code> 将自动生成一个目录为您基于<a href="https://guides.github.com/features/mastering-markdown/">减价头</a>！您可以通过设置为或。<code class="language-plaintext highlighter-rouge">toc:</code><code class="language-plaintext highlighter-rouge">true</code><code class="language-plaintext highlighter-rouge">false</code></li>
+</ul>
+
+<h3 id="科拉布活页夹和吉图布徽章"><a href="#colab-binder-and-github-badges"></a>科拉布、活页夹和吉图布徽章</h3>
+
+<p>此选项仅适用于<strong>笔记本</strong></p>
+
+<ul>
+  <li>该字段用于在博客文章中可选地将笔记本与科拉布和 GitHub 的链接渲染。如果您没有在笔记本中指定它，它将默认。<code class="language-plaintext highlighter-rouge">branch</code><code class="language-plaintext highlighter-rouge">master</code></li>
+  <li>如果你不想显示Colab/GitHub徽章在你的博客文章（也许是因为你的回购是私人的，链接将被打破）设置为。此默认值<code class="language-plaintext highlighter-rouge">badges</code><code class="language-plaintext highlighter-rouge">false</code><code class="language-plaintext highlighter-rouge">true</code></li>
+  <li>默认情况下，当您从前部物质中省略此参数或设置时，<strong>所有三个徽章（GitHub、活页夹、Colab）</strong>都将默认显示。您可以根据<a href="#site-wide-configuration-options">站点宽配置选项</a>中的参数调整这些默认值。<code class="language-plaintext highlighter-rouge">badges: true</code><code class="language-plaintext highlighter-rouge">default_badges</code>
+    <ul>
+      <li>
+        <p>如果只想在单个帖子上隐藏徽章，则可以设置正面事项。例如，如果您想将活页夹徽章隐藏在单个笔记本上，但希望其他徽章显示，则可以在前面设置此徽章：<code class="language-plaintext highlighter-rouge">hide_{github,colab,binder}_badge: true</code></p>
+
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">badges</span><span class="pi">:</span> <span class="no">true</span>
+<span class="pi">-</span> <span class="na">hide_binder_badge</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li><strong>关于活页夹的注意</strong>事项：活页夹允许您为您的读者自定义Jupyter笔记本环境的依赖关系和其他方面。最简单的方法是在存储库的根部添加一个文件，其中带有您用于所有笔记本的普通包，您可以<a href="https://mybinder.readthedocs.io/en/latest/introduction.html">在官方的 Binder 文档中</a>了解更多信息。<code class="language-plaintext highlighter-rouge">requirements.txt</code></li>
+</ul>
+
+<h3 id="类别"><a href="#categories"></a>类别</h3>
+
+<ul>
+  <li>
+    <p>你可以在博客文章的类别方括号内有一个逗号分离列表，这将使该帖子在博客网站的标签页面上可见。例如：</p>
+
+    <p>在笔记本中：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># "My Title"
+- categories: [fastpages, jupyter]
+
+</code></pre></div>    </div>
+
+    <p>在减价文档中：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+title: "My Title"
+categories: [fastpages, jupyter]
+---
+
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>你可以<a href="https://fastpages.fast.ai/categories/">在这里</a>看到这个样子的预览。</p>
+
+<ul>
+  <li>您可以通过设置或在以下场合切换标签的显示：<code class="language-plaintext highlighter-rouge">show_tags</code><code class="language-plaintext highlighter-rouge">true</code><code class="language-plaintext highlighter-rouge">false</code><code class="language-plaintext highlighter-rouge">_config.yml</code></li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Set this to true to display tags on each post</span>
+<span class="na">show_tags</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
+
+<h3 id="启用注释"><a href="#enabling-comments"></a>启用注释</h3>
+
+<p>评论博客文章是由<a href="https://github.com/utterance/utterances">乌坦斯</a>，一种开源和无广告的方式实施评论。所有评论都存储在博客 GitHub 存储库上的问题中。您可以将此设置打开为。此默认值为 .<code class="language-plaintext highlighter-rouge">comments</code><code class="language-plaintext highlighter-rouge">true</code><code class="language-plaintext highlighter-rouge">false</code></p>
+
+<p>要启用<a href="https://github.com/utterance/utterances">“已访问”</a>的注释，您需要做以下工作：</p>
+
+<ul>
+  <li>确保回购是公开的，否则您的读者将无法查看问题/评论。</li>
+  <li>确保<a href="https://github.com/apps/utterances">话语应用程序</a>安装在回购上，否则用户将无法发布评论。</li>
+  <li>如果您的回购是叉子，请导航到其设置选项卡并确认问题功能已打开。</li>
+</ul>
+
+<h3 id="为社交媒体设置图像"><a href="#setting-an-image-for-social-media"></a>为社交媒体设置图像</h3>
+
+<p>在 Twitter 等社交媒体网站上，可以自动使用 URL 显示图像预览。指定前方问题向社交媒体网站提供此元数据，以便为您呈现此图像。您可以将此值设置如下：<code class="language-plaintext highlighter-rouge">image</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">- image: images/diagram.png</code></p>
+
+<p>注意：对于此设置<strong>，您只能引用回购<code class="language-plaintext highlighter-rouge">/图像</code>文件夹中的图像文件和文件夹。</strong></p>
+
+<h3 id="隐藏博客文章"><a href="#hiding-a-blog-post"></a>隐藏博客文章</h3>
+
+<p>您可能希望阻止博客文章在主页上列出，但仍有一个公共网址，您可以谨慎地预览或共享。您可以通过将正面内容设置为”主页”来隐藏主页中的博客文章。默认情况下，这将设置为。<code class="language-plaintext highlighter-rouge">hide</code><code class="language-plaintext highlighter-rouge">true</code><code class="language-plaintext highlighter-rouge">false</code></p>
+
+<p>建议您使用<a href="https://jekyllrb.com/docs/permalinks/">永久链接</a>来生成隐藏的博客文章的可预测网址。如果您不希望用户在搜索中找到隐藏的帖子，您也可以将前方问题设置为。<code class="language-plaintext highlighter-rouge">search_exclude</code><code class="language-plaintext highlighter-rouge">false</code></p>
+
+<h3 id="固定博客文章"><a href="#pinning-a-blog-post"></a>固定博客文章</h3>
+
+<p>默认情况下，帖子会按您的主页上的日期进行排序。但是，您可能希望一篇或多篇博文始终出现在主页的顶部。换句话说，您可能希望某些帖子被”固定”或”粘性”。要完成此目的，请按照您希望粘性帖子显示的顺序指定前方事项。未设置此参数的博客文章在粘性帖子发布后按默认方式按日期排序。<code class="language-plaintext highlighter-rouge">sticky_rank</code></p>
+
+<p>例如，考虑这三个减价帖子（也适用于笔记本）。</p>
+
+<p><code class="language-plaintext highlighter-rouge">2020-01-01-Post-One.md</code></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s">Post One</span>
+<span class="na">sticky_rank</span><span class="pi">:</span> <span class="m">1</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">2020-02-01-Post-Two.md</code></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s">Post Two</span>
+<span class="na">sticky_rank</span><span class="pi">:</span> <span class="m">2</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">2020-04-01-Post-Three.md</code></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s">Post Three</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p>但是，由于指定，博客文章<strong>将首先按升序排列sticky_rank，然后按日期按降序</strong>排序，因此这些帖子的顺序将显示为：<code class="language-plaintext highlighter-rouge">sticky_rank</code></p>
+
+<ul>
+  <li>后一</li>
+  <li>后二</li>
+  <li>后三</li>
+</ul>
+
+<p><em>如果没有<code class="language-plaintext highlighter-rouge">sticky_rank</code>由于每个帖子的日期，上述帖子实际上将按相反顺序排序。</em></p>
+
+<p><em>注意：固定也适用于笔记本：</em></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># "My cool blog post"
+&gt; "Description of blog post"
+
+- sticky_rank: 2
+
+</code></pre></div></div>
+
+<h3 id="切换搜索可见性"><a href="#toggle-search-visibility"></a>切换搜索可见性</h3>
+
+<p>快页附带内置的关键字搜索由<a href="https://lunrjs.com/">lunr.js</a>供电。您可以通过将正面内容设置为”搜索结果”来防止博客文章或页面出现在搜索结果中。默认情况下，这将设置为。<code class="language-plaintext highlighter-rouge">search_exclude</code><code class="language-plaintext highlighter-rouge">false</code><code class="language-plaintext highlighter-rouge">true</code></p>
+
+<h2 id="站点宽配置选项"><a href="#site-wide-configuration-options"></a>站点宽配置选项</h2>
+
+<p><strong>建议每个人通过设置全网站的配置选项来个性化他们的博客网站</strong>。这些选项可以在.以下是可用的各种选项的描述。<code class="language-plaintext highlighter-rouge">/_config.yml</code></p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">title</code> ：这是标题，出现在你所有页面的标题左上角。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">description</code> ：当生成网站预览时（例如，在社交媒体上），此描述将显示在不同位置。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">github_username</code> ：这允许您的网站在页脚中显示指向GitHub页面的链接。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">github_repo</code> ：这允许您的网站将链接还给您的存储库，以提供各种功能，如指向GitHub和Colab的笔记本链接。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">url</code> ：除非您有自定义域，否则不需要更改此域。<strong>注意：将尾随/从此值中遗漏。</strong></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">baseurl</code> ： 请参阅有关说明的评论（”巴塞尔特别说明”，正确设置此值。如果您没有自定义域，则可能会忽略此选项。<code class="language-plaintext highlighter-rouge">/_config.yml</code></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">email</code> ：此问题目前未使用。忽视。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">twitter_username</code> ：在脚下创建一个链接到您的推特页面。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">use_math</code> ：设置此以获得LaTeX数学方程支持。默认情况下，这是关闭的，因为它其他为什么加载javascript到每个页面，可能不使用。<code class="language-plaintext highlighter-rouge">true</code></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">show_description</code> ：这显示了主页上博客文章标题下的描述，其中包含您的博客文章列表。默认情况下设置为。<code class="language-plaintext highlighter-rouge">true</code></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">google_analytics</code> ：如果需要，可选择使用<a href="http://www.google.com/analytics/">谷歌分析</a>ID进行跟踪。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">show_image</code> ：如果设置为真实，则使用博客文章正面的参数来呈现以下博客的预览。默认情况下，这将设置为。当show_image设置为主页时，将看起来像这样：<code class="language-plaintext highlighter-rouge">image</code><code class="language-plaintext highlighter-rouge">false</code><code class="language-plaintext highlighter-rouge">true</code></p>
+
+    <p><a href="https://github.com/fastai/fastpages/blob/master/_fastpages_docs/_show_image_true.png"><img src="https://github.com/fastai/fastpages/raw/master/_fastpages_docs/_show_image_true.png" alt="home page" /></a></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">show_tags</code> ：您可以通过将此值设置为”打开”或”关闭”来切换博客文章上或关闭的标签显示。默认情况下，这将为您的博客文章中的标签提供以下链接：<code class="language-plaintext highlighter-rouge">false</code><code class="language-plaintext highlighter-rouge">true</code></p>
+
+    <p><a href="https://github.com/fastai/fastpages/blob/master/_fastpages_docs/_post_tags.png"><img src="https://github.com/fastai/fastpages/raw/master/_fastpages_docs/_post_tags.png" alt="tags" /></a></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">pagination</code> ：这是主页每个页面上显示的帖子数量最多。任何超过此金额的帖子都将被放到另一个页面上。默认情况下，这将设置为。触发此内容时，您将看到主页底部的 pagination 显示为：<code class="language-plaintext highlighter-rouge">15</code></p>
+
+    <p><a href="https://github.com/fastai/fastpages/blob/master/_fastpages_docs/_paginate.png"><img src="https://github.com/fastai/fastpages/raw/master/_fastpages_docs/_paginate.png" alt="paginate" /></a></p>
+
+    <p>注意：如果您使用的是旧版本的快速页面，<strong>则无法使用自动升级过程</strong>进行 pagination。相反，您必须遵循以下步骤：</p>
+
+    <ol>
+      <li>
+        <p>将您的 index.md 文件重命名为索引.html</p>
+
+        <blockquote>
+          <p>mv index.md 指数.html</p>
+        </blockquote>
+      </li>
+      <li>将回购中的文件替换为回购中的根部。<code class="language-plaintext highlighter-rouge">Gemfile</code><code class="language-plaintext highlighter-rouge">Gemfile.lock</code></li>
+      <li>
+        <p>编辑如下（请看<a href="https://github.com/fastai/fastpages/blob/master/_config.yml">_config.yml</a>举例）：<code class="language-plaintext highlighter-rouge">_config.yml</code></p>
+
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">gems</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">jekyll-paginate</span>
+
+<span class="na">paginate</span><span class="pi">:</span> <span class="m">10</span>
+<span class="na">paginate_path</span><span class="pi">:</span> <span class="s">/page:num/</span>
+</code></pre></div>        </div>
+      </li>
+    </ol>
+
+    <p><em>或者，您也可以将所有帖子复制到从快速页面模板创建的新创建的存储库。</em></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">default_badges</code> ：默认情况下，GitHub、活页夹和科拉布徽章将出现在笔记本博客上。您可以通过将适当的值设置为错误来调整这些默认值。例如，如果您想在默认情况下关闭活页夹徽章，则会更改为：<code class="language-plaintext highlighter-rouge">default_badges</code><code class="language-plaintext highlighter-rouge">default_badges</code></p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">default_badges</span><span class="pi">:</span>
+  <span class="na">github</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">binder</span><span class="pi">:</span> <span class="no">false</span>
+  <span class="na">colab</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">html_escape</code> ：这允许您在博客文章的开或关的各个组件中切换HTML的逃逸。此时此刻，您只能在帖子中切换此字段。
+默认情况下，这将设置为。<code class="language-plaintext highlighter-rouge">description</code><code class="language-plaintext highlighter-rouge">false</code></p>
+  </li>
+</ul>
+
+<h2 id="调整页面宽度"><a href="#adjusting-page-width"></a>调整页面宽度</h2>
+
+<p>您可以通过编辑<a href="https://github.com/fastai/fastpages/blob/master/_sass/minima/custom-variables.scss">/_sass/最小/自定义变量.scs</a>来调整各种设备上快速页面的页面宽度。</p>
+
+<p>这些是默认值，可以根据您的喜好进行调整：</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">//</span> <span class="nt">width</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">content</span> <span class="nt">area</span>
+<span class="o">//</span> <span class="nt">can</span> <span class="nt">be</span> <span class="nt">set</span> <span class="nt">as</span> <span class="s1">"px"</span> <span class="nt">or</span> <span class="s1">"%"</span>
+<span class="err">$</span><span class="nt">content-width</span><span class="o">:</span>    <span class="err">1000</span><span class="nt">px</span><span class="o">;</span>
+<span class="err">$</span><span class="nt">on-palm</span><span class="o">:</span>          <span class="err">800</span><span class="nt">px</span><span class="o">;</span>
+<span class="err">$</span><span class="nt">on-laptop</span><span class="o">:</span>        <span class="err">1000</span><span class="nt">px</span><span class="o">;</span>
+<span class="err">$</span><span class="nt">on-medium</span><span class="o">:</span>        <span class="err">1000</span><span class="nt">px</span><span class="o">;</span>
+<span class="err">$</span><span class="nt">on-large</span><span class="o">:</span>         <span class="err">1200</span><span class="nt">px</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h2 id="注释和突出显示与-hypothesis"><a href="#annotations-and-highlighting-with-hypothesis"></a>注释和突出显示与 hypothes.is</h2>
+
+<p><a href="https://web.hypothes.is/">hypothes.is</a>是一个开放的平台，提供一种方式来注释和隐藏页面，可以是公共的或私人的。启用此功能后，在突出显示文本时，您的博客的读者将收到以下图文：</p>
+
+<p><a href="https://github.com/fastai/fastpages/blob/master/_fastpages_docs/annotate.png"><img src="https://github.com/fastai/fastpages/raw/master/_fastpages_docs/annotate.png" alt="annotation" /></a></p>
+
+<p><strong>默认情况下，这在快速页面中会禁用。</strong>您可以通过设置<a href="https://github.com/fastai/fastpages/blob/master/_config.yml">_config</a>或：<code class="language-plaintext highlighter-rouge">annotations</code><code class="language-plaintext highlighter-rouge">true</code><code class="language-plaintext highlighter-rouge">false</code></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Set this to true to turn on annotations with hypothes.is</span>
+<span class="na">annotations</span><span class="pi">:</span> <span class="no">false</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>您可以通过阅读<a href="http://h.readthedocs.io/projects/client/en/latest/publishers/config/">这些配置选项</a>自定义 hypothes.is。如果你想用 hypothes.is 做更多的事，读<a href="https://web.hypothes.is/for-publishers/#embedding">这些文档</a>也是个好主意。但是，在尝试自定义此功能之前，您应该阅读<a href="#customizing-fastpages">自定义快速页面</a>部分以了解重要的注意事项。</p>
+</blockquote>
+
+<h2 id="订阅-rss"><a href="#subscribing-with-rss"></a>订阅 RSS</h2>
+
+<p>您可以引导读者订阅<a href="https://en.wikipedia.org/wiki/RSS">RSS 源</a>。互联网上有许多RSS订阅服务。一些示例包括：</p>
+
+<ol>
+  <li><a href="https://feedrabbit.com/">饲料拉比特</a></li>
+  <li><a href="https://blogtrottr.com/">博客</a></li>
+</ol>
+
+<h2 id="语法突出显示"><a href="#syntax-highlighting"></a>语法突出显示</h2>
+
+<p><code class="language-plaintext highlighter-rouge">fastpages</code> 用<a href="https://draculatheme.com/">德古拉主题</a>覆盖迷你机的默认语法突出显示。</p>
+
+<ul>
+  <li>
+    <p>快页中的默认高亮显示看起来像这样：</p>
+
+    <p><a href="https://github.com/fastai/fastpages/blob/master/_fastpages_docs/highlight_dracula.png"><img src="https://github.com/fastai/fastpages/raw/master/_fastpages_docs/highlight_dracula.png" alt="default-highlighting" /></a></p>
+  </li>
+  <li>
+    <p>但是，如果您选择：</p>
+
+    <p><a href="https://github.com/fastai/fastpages/blob/master/_fastpages_docs/highlight_original.png"><img src="https://github.com/fastai/fastpages/raw/master/_fastpages_docs/highlight_original.png" alt="default-highlighting" /></a></p>
+
+    <p>如果您希望恢复到上述光主题，您可以在<a href="https://github.com/fastai/fastpages/blob/master/_sass/minima/custom-styles.scss">_sass/迷你/自定义样式.scs 中</a>删除下行</p>
+
+    <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@import</span> <span class="s1">"minima/fastpages-dracula-highlight"</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>如果您不喜欢这两个主题，您可以在<a href="https://github.com/fastai/fastpages/blob/master/_sass/minima/custom-styles.scss"><code class="language-plaintext highlighter-rouge">_sass/迷你/自定义样式.scs 中</code></a>添加自己的 CSS。有关详细信息，请参阅<a href="#customizing-fastpages">自定义快速页面</a>。</p>
+  </li>
+</ul>
+
+<h2 id="黑暗模式"><a href="#dark-mode"></a>黑暗模式</h2>
+
+<p><a href="https://prudhvirampey.com/blog/colours/jekyll/css/fastpages/2020/10/30/hello-dark-mode.html">此博客文章</a>描述了如何启用快速页面的黑暗模式。</p>
+
+<h2 id="通过-bibtex-添加引文"><a href="#adding-citations-via-bibtex"></a>通过 BibTex 添加引文</h2>
+
+<p>喜欢使用引文系统的用户可以这样做：它需要启用<a href="https://github.com/inukshuk/jekyll-scholar">杰基尔学者</a>插件。请<a href="https://drscotthawley.github.io/devblog4/2020/07/01/Citations-Via-Bibtex.html">通过 BibTex 和杰基尔学者在快速页面中查看引文</a>， 了解有关实施此内容的说明。</p>
+
+<h2 id="写博客文章与朱皮特"><a href="#writing-blog-posts-with-jupyter"></a>写博客文章与朱皮特</h2>
+
+<h3 id="隐藏输入输出单元"><a href="#hide-inputoutput-cells"></a>隐藏输入/输出单元</h3>
+
+<p>将注释放在代码单元的开头，它会隐藏该单元格<strong>的输入和输出</strong>。<code class="language-plaintext highlighter-rouge">#hide</code></p>
+
+<p>任何单元格顶部的评论<strong>只会隐藏输入</strong>。<code class="language-plaintext highlighter-rouge">#hide_input</code></p>
+
+<p>此外<a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/hide_input/readme.html">，Jupyter 扩展</a>可用于隐藏单元格输入或输出，这些输入或输出将受到快速页面的尊重。<code class="language-plaintext highlighter-rouge">hide input</code></p>
+
+<h3 id="可折叠代码单元"><a href="#collapsable-code-cells"></a>可折叠代码单元</h3>
+
+<p>您可能希望将某些代码隐藏在用户可以扩展的折叠元素中，而不是完全向读取器隐藏代码。</p>
+
+<ul>
+  <li>要将代码包含在<strong>默认崩溃</strong>的可折叠单元格中，请将注释放在代码单元的顶部。<code class="language-plaintext highlighter-rouge">#collapse</code></li>
+  <li>要将代码包含在<strong>默认打开</strong>的可折叠单元中，请将注释或放在代码单元的顶部。<code class="language-plaintext highlighter-rouge">#collapse_show</code><code class="language-plaintext highlighter-rouge">#collapse-show</code></li>
+  <li>要将输出包含在默认关闭的可折叠元件下，请将注释或放在代码单元的顶部。<code class="language-plaintext highlighter-rouge">#collapse_output</code><code class="language-plaintext highlighter-rouge">#collapse-output</code></li>
+</ul>
+
+<h3 id="嵌入式推特和-youtube-内容"><a href="#embedded-twitter-and-youtube-content"></a>嵌入式推特和 YouTube 内容</h3>
+
+<p>在笔记本中的减价单元中，使用以下减价快捷方式嵌入 Twitter 卡和 YouTube 视频。</p>
+
+<pre><code class="language-gfm">&gt; youtube: https://youtu.be/your-link
+&gt; twitter: https://twitter.com/some-link
+</code></pre>
+
+<h3 id="添加脚注"><a href="#adding-footnotes"></a>添加脚注</h3>
+
+<p>在笔记本中添加脚注与减价有点不同。请参阅<a href="https://github.com/fastai/fastpages/blob/master/_fastpages_docs/NOTEBOOK_FOOTNOTES.md">笔记本脚注的详细指南</a>。</p>
+
+<h3 id="自动将笔记本转换为博客帖子"><a href="#automatically-convert-notebooks-to-blog-posts"></a>自动将笔记本转换为博客帖子</h3>
+
+<ol>
+  <li>
+    <p>将笔记本与命名约定分别保存到此回购的或文件夹中。例如。<a href="https://jekyllrb.com/docs/posts/">此命名惯例由 Jekyll 要求</a>呈现您的博客文章。<code class="language-plaintext highlighter-rouge">YYYY-MM-DD-*.</code><code class="language-plaintext highlighter-rouge">/_notebooks</code><code class="language-plaintext highlighter-rouge">/_word</code><code class="language-plaintext highlighter-rouge">2020-01-28-My-First-Post.ipynb</code></p>
+
+    <ul>
+      <li>
+        <p>小心正确命名您的文件！很容易忘记最后的破折号。此外，破折号之后的字符应仅是字母。有效文件名示例包括：<code class="language-plaintext highlighter-rouge">YYYY-MM-DD-</code></p>
+
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2020-01-28-My-First-Post.ipynb
+2012-09-12-how-to-write-a-blog.ipynb
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>如果您未能正确命名您的文件，将自动尝试通过将文件的最后修改日期预告到您生成的博客文章来解决问题，但是，建议您自己正确命名您的文件，以提高透明度。<code class="language-plaintext highlighter-rouge">fastpages</code></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="https://help.github.com/en/github/managing-files-in-a-repository/adding-a-file-to-a-repository-using-the-command-line">将文件提交并推送</a>至存储库主分支中的 GitHub。</p>
+  </li>
+  <li>
+    <p>GitHub 将自动将您的文件转换为博客文章。<strong>转换过程需要大约 5 分钟</strong>。您可以单击回购的”操作”选项卡以查看此过程的日志。每次向主分支推送时，都会触发两个工作流：（1） “CI”和 （2） “GH 页面状态”。在更新网站之前，两个工作流程都必须为您的最新提交添加绿色复选标记。</p>
+  </li>
+  <li>
+    <p>如果您愿意，您可以在提交 GitHub 之前预览您的博客在本地的外观。有关本地运行预览的详细信息指南，请参阅<a href="#running-the-blog-on-your-local-machine">本节</a>。</p>
+  </li>
+</ol>
+
+<h2 id="写博客文章与记分"><a href="#writing-blog-posts-with-markdown"></a>写博客文章与记分</h2>
+
+<p>如果您正在以减价形式写博客文章，请将您的文件保存到文件夹中，并指定为笔记本指定相同的命名约定（）。<code class="language-plaintext highlighter-rouge">.md</code><code class="language-plaintext highlighter-rouge">/_posts</code><code class="language-plaintext highlighter-rouge">YYYY-MM-DD-*.md</code></p>
+
+<h2 id="用微软字写博客文章"><a href="#writing-blog-posts-with-microsoft-word"></a>用微软字写博客文章</h2>
+
+<p>将 Microsoft Word 文档保存到文件夹中，其中具有为笔记本指定的相同命名约定 （）。<code class="language-plaintext highlighter-rouge">/_word</code><code class="language-plaintext highlighter-rouge">YYYY-MM-DD-*.docx</code></p>
+
+<p><em>注意：Word</em>文档中的<a href="https://support.office.com/en-us/article/add-alternative-text-to-a-shape-picture-chart-smartart-graphic-or-other-object-44989b2a-903c-4d9a-b742-6a75b451c669">替代文本</a>尚未由快速页面支持，并将中断指向图像的链接。</p>
+
+<h3 id="指定-word-文档的正面事项"><a href="#specifying-front-matter-for-word-documents"></a>指定 Word 文档的正面事项</h3>
+
+<p><code class="language-plaintext highlighter-rouge">fastpages</code> 没有一个强大的方法来指定Word文档<a href="https://jekyllrb.com/docs/front-matter/">的正面问题</a>。目前，您只能通过编辑<a href="https://github.com/fastai/fastpages/blob/master/_action_files/word_front_matter.txt">_action_files/word_front_matter.txt</a>来指定全球所有 Word 文档的正面内容。</p>
+
+<p>要指定每个 Word 文档中唯一的前问题，您需要手动将 Word 转换为减价文件。您可以按照此<a href="https://www.fast.ai/2020/01/18/gitblog/">博客文章</a>中的步骤操作，这些步骤将引导您了解如何使用<a href="https://pandoc.org/installing.html">pandoc</a>进行转换。注意：如果您希望自定义您在减价中生成的 Word 博客文章，请确保从_word目录中删除您的 Word 文档，以便您的减价文件不会被覆盖！</p>
+
+<p><em>如果您撰写博客文章的主要方法是 Word 文档，并且您计划始终手动编辑从 Word 转换的减价文件，则最好使用<a href="https://github.com/fastai/fast_template">fast_template</a>而不是快速页面。</em></p>
+
+<h1 id="在本地机器上运行博客"><a href="#running-the-blog-on-your-local-machine"></a>在本地机器上运行博客</h1>
+
+<p>请参阅<a href="https://github.com/fastai/fastpages/blob/master/_fastpages_docs/DEVELOPMENT.md">发展指南</a>。</p>
+
+<h1 id="使用github行动和您自己的自定义博客"><a href="#using-the-github-action--your-own-custom-blog"></a>使用GitHub行动和您自己的自定义博客</h1>
+
+<p>该操作允许您将笔记本和字文档从您的回购目录转换为<a href="https://jekyllrb.com/">Jekyll</a>合规的博客文章标记文件位于 。<strong>注意：此目录结构目前不灵活</strong>，因为它设计用于 Jekyll。<code class="language-plaintext highlighter-rouge">fastpages</code><code class="language-plaintext highlighter-rouge">/_notebooks</code><code class="language-plaintext highlighter-rouge">/_word</code><code class="language-plaintext highlighter-rouge">/_posts</code></p>
+
+<p>如果您已经对<a href="https://jekyllrb.com/">Jekyll</a>有足够熟悉，并希望在您自己的主题中使用此自动化，则可以通过引用以下内容使用此 GitHub 操作：<code class="language-plaintext highlighter-rouge">fastai/fastpages@master</code></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">...</span>
+
+<span class="na">uses</span><span class="pi">:</span> <span class="s">fastai/fastpages@master</span>
+
+<span class="nn">...</span>
+</code></pre></div></div>
+
+<p>完整工作流程可能是什么样子的说明性示例：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build-site</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="s">...</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">convert notebooks and word docs to posts</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">fastai/fastpages@master</span>
+
+    <span class="s">...</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Jekyll build</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">docker://jekyll/jekyll</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">args</span><span class="pi">:</span> <span class="s">jekyll build</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Deploy</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">peaceiris/actions-gh-pages@v3</span>
+      <span class="na">if</span><span class="pi">:</span> <span class="s">github.event_name == 'push'</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">deploy_key</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="na">publish_branch</span><span class="pi">:</span> <span class="s">gh-pages</span>
+        <span class="na">publish_dir</span><span class="pi">:</span> <span class="s">./_site</span>
+</code></pre></div></div>
+
+<p>请注意，此操作<strong>没有任何所需的输入，并且没有输出变量</strong>。</p>
+
+<h3 id="可选输入"><a href="#optional-inputs"></a>可选输入</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">BOOL_SAVE_MARKDOWN</code> ：要么是”真”就是”假”。是否将从笔记本和文字文档转换的减价文件提交到回购中的_posts目录中。这对于调试很有用。<em>默认：错误</em></li>
+  <li><code class="language-plaintext highlighter-rouge">SSH_DEPLOY_KEY</code> ：如果BOOL_SAVE_MARKDOWN=”真实”，则需要ssh部署密钥</li>
+</ul>
+
+<p>请参阅此操作中的 API 规范<a href="https://github.com/fastai/fastpages/blob/master/action.yml">。</a></p>
+
+<p>有关如何自定义此博客的详细说明超出了本 README 的范围。（我们邀请社区人士就如何在此回购中这样做发表博文！</p>
+
+<h1 id="为快速页面做出贡献"><a href="#contributing-to-fastpages"></a>为快速页面做出贡献</h1>
+
+<p>请参阅<a href="https://github.com/fastai/fastpages/blob/master/_fastpages_docs/CONTRIBUTING.md">投稿指南</a>。</p>
+
+<h1 id="升级快速页面"><a href="#upgrading-fastpages"></a>升级快速页面</h1>
+
+<p>请参阅<a href="https://github.com/fastai/fastpages/blob/master/_fastpages_docs/UPGRADE.md">升级指南</a>。</p>
+
+<h1 id="常见问题"><a href="#faq"></a>常见问题</h1>
+
+<ul>
+  <li><strong>问：四、四、三、</strong>从我的Jupyter笔记本或文字文档生成的减价文件在哪里？<strong>答：</strong>此回购中的 GitHub 操作工作流可在构建网站之前将您的笔记本和单词文档转换为即时标记，但绝不会将这些中间减价文件提交到此回购。这是为了节省您从烦恼，你的本地环境不断不同步，你的存储库。您可以选择性地查看这些中间减价文件，将文件中的快速页面操作的输入设置如下：<code class="language-plaintext highlighter-rouge">_posts/</code><code class="language-plaintext highlighter-rouge">BOOL_SAVE_MARKDOWN</code><code class="language-plaintext highlighter-rouge">SSH_DEPLOY_KEY</code><code class="language-plaintext highlighter-rouge">.github/workflows/ci.yaml</code></li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="s">...</span>
+
+    <span class="s">- name</span><span class="pi">:</span> <span class="s">convert notebooks and word docs to posts</span>
+      <span class="s">uses</span><span class="pi">:</span> <span class="s">fastai/fastpages@master</span>
+      <span class="s">with</span><span class="pi">:</span>
+        <span class="na">BOOL_SAVE_MARKDOWN</span><span class="pi">:</span> <span class="no">true</span>
+        <span class="na">SSH_DEPLOY_KEY</span><span class="pi">:</span> <span class="s">$</span>
+
+    <span class="s">...</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><strong>问：四、四、三、</strong>我可以使用杰基尔文档网站或不是杰基尔博客文章的东西吗？<strong>答：</strong>目前，是一个高度有意见的解决方案，只适用于杰基尔的博客文章。如果您想用 Jupyter 笔记本为您的模块或库编写文档，我们建议您使用专为此目的构建的<a href="https://github.com/fastai/nbdev">fastai/nbdev。</a><code class="language-plaintext highlighter-rouge">fastpages</code><code class="language-plaintext highlighter-rouge">fastpages</code></p>
+  </li>
+  <li>
+    <p><strong>问：四、四、三、</strong><a href="https://github.com/fastai/fast_template">fast_template</a>和快页有什么区别？我应该使用哪一个？<strong>答：</strong>因为更灵活、更易扩展，我们建议尽可能使用它。 对于根本没有技术专长的人来说，博客可能是更好的选择，并且只会使用Github的集成在线编辑器创建帖子。<code class="language-plaintext highlighter-rouge">fastpages</code><code class="language-plaintext highlighter-rouge">fast_template</code></p>
+  </li>
+</ul>
+
+<h1 id="自定义快速页面"><a href="#customizing-fastpages"></a>自定义快速页面</h1>
+
+<p>快速页面建立在<a href="https://github.com/jekyll/minima">迷你主题</a>的基础上。如果您想要自定义快速页面的造型或布局，您可以<a href="https://github.com/jekyll/minima/blob/master/README.md">在 minima 的 README 中</a>找到说明。阅读 README 的完整内容以了解目录结构是一个好主意。此外，在定制主题之前，最好对 Jekyll 有一个基本的了解。对于那些新到杰基尔的人来说<a href="https://jekyllrb.com/docs/">，官方文件</a>是一个很好的开始。具体来说，你可以在快页中覆盖cs。<em>请注意，minima 的”皮肤”功能当前与快页的 css 设置不兼容。</em><code class="language-plaintext highlighter-rouge">_sass/minima/custom-styles.scss</code></p>
+
+<p><strong>如果您选择对快速页面进行自定义</strong>您所做的定制可能会与当前或未来的快速页面版本发生碰撞，我们建议只有在您对 HTML 和 CSS 感到足够满意的情况下才能这样做。</p>
+
+<h1 id="故障排除快页"><a href="#troubleshooting-fastpages"></a>故障排除快页</h1>
+
+<p>请参阅<a href="https://github.com/fastai/fastpages/blob/master/_fastpages_docs/TROUBLESHOOTING.md">故障排除指南</a>。</p>
